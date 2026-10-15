@@ -4,8 +4,9 @@
 say what you want, one agent builds, the other reviews, and you decide what to keep.
 
 - **Talk, then confirm.** Type or say "in shop, fix the failing date test". Nox shows exactly what will run on a card; nothing starts until you press **Confirm**.
-- **Two agents, one team.** One builds, the other reviews, each task in its own copy of your repo. Your files and branch are never touched.
-- **A Review Desk.** The diff with every review finding pinned under its line: **Keep work** (saved on a `nox/…` branch), **Send back** or **Discard**.
+- **Two agents, one team.** One builds, the other reviews, each task in its own copy of your repo. Nothing in your repo changes while they work.
+- **Your branch, your models.** A task starts from the branch you are on, or one you name ("on feature/login"). Claude tasks run Opus and Codex tasks the model your Codex config names, unless you pick others in Settings or for one task.
+- **A Review Desk.** The diff with every review finding pinned under its line: **Keep work → main** (onto the branch the task started from, when that is safe), **Send back** or **Discard**.
 - **Talk to the fleet.** "Approve the low-risk ones" puts several waiting low- or medium-risk agent requests on one card; high-risk requests are decided one at a time, and **Keep work** / **Discard** is always decided on its own card.
 - **Safe by default.** Agents are sandboxed, risky commands wait for **Allow**, `⌥⌘.` stops everything, and every task's tokens are counted against a budget.
 
@@ -23,7 +24,7 @@ Claude and Codex, and a fixed clock. No real work, person or Mac is shown.</sub>
 | ![One card approved two requests; the push still waits](screens/04c-batch-approved.png) | ![A task past its token budget asks: Let it finish or Stop it](screens/07-budget-tokens.png) |
 | **Several decisions, one card.** Each result shown; the high-risk push still waits for you. | **Tokens and budget.** Tokens today, and a card when a task passes its budget while its agent works. Nothing stops by itself. |
 | ![Welcome: pick your Git projects](screens/12-first-run.png) | ![A finished task waits for Keep work](screens/22-demo-keep.png) |
-| **First run.** Scan your folders and pick your Git projects. | **Keep work.** Open the Review Desk, then keep the work on its own branch. |
+| **First run.** Scan your folders and pick your Git projects. | **Keep work.** The card says where the work goes: **Keep work → main**, the branch the task started from. |
 
 ## Install
 
@@ -52,7 +53,10 @@ On first launch Nox starts its background service, adds two items to your login 
 3. **Confirm** the proposal card. Watch the task on the ring and in **Live events**.
 4. **Answer** what waits under **Needs you**: **Allow** or **Deny** a risky command; for finished work, **Open Review
    Desk**, then **Keep work**, **Send back** or **Discard**.
-5. **Merge** the `nox/…` branch yourself when you want it. Nox never merges and never pushes.
+5. **Keep work → main** moves the branch the task started from forward to the work, so your checkout's files include the
+   change. Nox does that only when it is safe: nobody committed to that branch since the task started, and its checkout
+   has no uncommitted changes. Otherwise the card says why before you decide, and the work is saved on a `nox/…` branch
+   for you to merge when you want. Nox never makes a merge commit, never force-moves a branch and never pushes.
 
 `⌥⌘.` stops every agent at once. `⌘1` Home · `⌘2` Tasks · `⌘,` Settings. The full illustrated guide is
 [Nox User Guide (PDF)](Nox-User-Guide.pdf).
@@ -61,19 +65,21 @@ On first launch Nox starts its background service, adds two items to your login 
 
 Every number below comes from a recorded run, with its date. Nothing is estimated unless it says so.
 
-### Tests — 2026-10-15, v0.3 before the 0.3.0 release
+### Tests — 2026-10-15, v0.3.1 before its release
 
 | Suite | Result |
 |---|---|
-| Service, scripts and voice-helper tests | 1,288 pass, 0 fail |
-| UI unit and component tests | 1,101 pass |
+| Service, scripts and voice-helper tests | 1,361 pass, 0 fail (24 opt-in tests skipped) |
+| UI unit and component tests | 1,152 pass |
 | Rust shell tests | 98 pass |
-| End-to-end (Playwright on WebKit, the engine inside the app, against a real Nox service per test) | 44 / 44 pass (plus 6 opt-in screenshot tests, skipped); 88 measured numbers, all within budget |
+| End-to-end (Playwright on WebKit, the engine inside the app, against a real Nox service per test) | 49 / 49 pass (plus 6 opt-in tests, skipped); every measured number within budget |
 | Accessibility (axe, WCAG 2 A + AA) | 0 serious or critical issues on every new screen, in default, high-contrast and reduced-motion modes |
 | Soak (10 minutes of agents, a service restart and conversation) | passed: 0 errors; page elements not tied to state −0.27 % from minute 2 to 10 (no leak) |
 
 In the end-to-end runs only a simulated agent and a mock assistant run, and every limit is an assertion: a number over
-budget fails the run. The accessibility checks and the soak are from an earlier run the same day.
+budget fails the run. The Keep tests run real git in throwaway repos. The soak and the full accessibility pass are from
+the 0.3.0 run the same day; 0.3.1's new screens (the Keep card, Task models, the Advanced pickers) are checked with axe
+in the end-to-end run.
 
 ### Performance — 2026-10-15
 
@@ -96,8 +102,8 @@ Measured on 2026-10-15 on an Apple M4 Mac (16 GB); the latest test run kept all 
 
 **13 / 13 checks passed** on a freshly installed Nox with the real Claude assistant (Haiku), a real Claude build and a
 real Codex review, on a throwaway repo: nothing ran before **Confirm**, the Mac was kept awake with the screen on,
-**Keep work** saved the change on its own `nox/…` branch, the assistant summed up Codex's review, and the kill switch
-stopped everything.
+**Keep work** saved the change on its own `nox/…` branch (0.2.0's Keep; since 0.3.1 it moves the branch the task started
+from when that is safe), the assistant summed up Codex's review, and the kill switch stopped everything.
 
 For 0.3.0, the new real-agent checks (approving several requests with the real assistant, Claude running its commands
 in bash) are written and run at the release step: they have not been run yet. The 0.3.0 numbers above come from the
@@ -117,7 +123,12 @@ automated suite.
   Anything that uses more of the shell (`$( )`, `$VAR`, backticks, `if`/`for` blocks, `&`) waits for you, so the shell
   can never read a command differently from Nox.
 - **The assistant only proposes.** It has no tools that change anything. Every action is a card you confirm, and text
-  from repos and agents reaches it only as data.
+  from repos and agents reaches it only as data. A Keep it proposes names the branch the work goes to, and runs exactly
+  that or nothing.
+- **Keep work moves only what it found.** It fast-forwards the branch the task started from only while that branch is
+  where the task found it and its checkout has no uncommitted changes. It never replaces a file git does not track (a
+  personal `CLAUDE.md` or `.env` stays as it is), never makes a merge commit, rebases or force-moves a branch, and your
+  repo's hooks do not run. Every branch it writes is in the audit log.
 - **Signed updates.** An update installs only if it is signed with Nox's own key; Nox never installs an older or the same
   version, and a failed update leaves Nox unchanged.
 - **No personal data in builds.** The app is built so it contains no file paths from the builder's Mac, and the build
@@ -136,4 +147,5 @@ security delete-generic-password -s pro.nvx.nox.api -a noxd
 security delete-generic-password -s pro.nvx.nox.audit -a noxd
 ```
 
-Branches Nox saved in your repos (`nox/…`) are yours; Nox never deletes them.
+Branches in your repos stay yours: uninstalling Nox removes none of them. (While you use it, Nox deletes a `nox/…` branch
+it made only when you keep the work under another name, or discard work that an earlier Keep had already saved there.)
