@@ -5,6 +5,10 @@ say what you want, one agent builds, the other reviews, and you decide what to k
 
 - **Talk, then confirm.** Type or say "in shop, fix the failing date test". Nox shows exactly what will run on a card; nothing starts until you press **Confirm**.
 - **Nox on your iPhone or iPad.** Privately see and control Nox over your own Tailscale network: answer requests, keep or discard work, chat, continue or stop tasks, stop all agents, and take a screenshot of the Mac. Pair once with a passkey; Face ID protects the risky actions. Nox uses tailnet-only `serve`, never Funnel or the public internet.
+- **Nox Notch.** A pill around the MacBook notch (top-centre pill on other Macs) shows what agents are doing in words: blue running, orange needs you, red failed. Hover for Allow, Deny, Always allow here and Stop; buttons wake up a moment after it opens so a stray click never approves.
+- **Your Mac, live on your phone.** Watch the Mac's screen through macOS Screen Sharing over your tailnet; **Take control** needs Face ID, sessions end after 60 minutes, and Nox never stores your Mac password. Off by default.
+- **Tour, What's new and Help.** A seven-step tour on first run, a what's-new card after each update, and the full guide inside Nox (the **?** button), offline.
+- **Hardened runtime.** Nox is signed with macOS's hardened runtime and asks only for the microphone.
 - **Chat history.** Nox keeps your conversations with it on your Mac. **History** lists them with a search; open one to carry on, rename it, or delete one or all.
 - **Adding projects that feels natural.** **Choose folder…**, drag a folder from Finder, or type `~/code`. Nox looks as soon as a folder is added, lists projects by when they were last used, and lets you search, **Select active** and add in one go. **Remove from Nox** forgets a project without touching your folder.
 - **Tidy tasks, one Stop.** A Tasks filter (All, Running, Needs you, Finished), **Delete** and **Clear finished…** for old tasks (your branches and repos are never touched), and one **Stop all** that says **All agents stopped** until you resume.
@@ -86,7 +90,20 @@ On first launch Nox starts its background service, adds two items to your login 
 
 Every number below comes from a recorded run, with its date. Nothing is estimated unless it says so.
 
-### Tests — 2026-10-16, v0.4.2 (latest recorded run)
+### Tests — 2026-10-17, v0.5.0 (latest recorded run)
+
+| Suite | Result |
+|---|---|
+| Service, scripts and voice-helper tests (bun) | 1,614 pass |
+| UI unit and component tests (desktop vitest) | 1,395 pass |
+| Phone app tests | 117 pass |
+| Rust shell tests (cargo) | 114 pass |
+| End-to-end (Playwright on WebKit, against a real Nox service per test) | 67 passed (plus the opt-in screenshot tests, skipped) |
+
+This is the full gate run on 2026-10-17. The performance, soak and real-agent numbers below were not re-measured for
+0.5.0 and are from the older dates shown with them.
+
+### Tests — 2026-10-16, v0.4.2 (older)
 
 | Suite | Result |
 |---|---|
@@ -95,9 +112,6 @@ Every number below comes from a recorded run, with its date. Nothing is estimate
 | Phone app tests | 98 pass |
 | Rust shell tests | 99 pass |
 | End-to-end (Playwright on WebKit, against a real Nox service per test) | 61 passed (plus the opt-in tests, skipped) |
-
-This is the full gate run on 2026-10-16 after the 0.4.2 fixes. The performance, soak and real-agent numbers below were
-not re-measured for 0.4.2 and are from the older dates shown with them.
 
 ### Tests — 2026-10-15, v0.3.1 before its release (older)
 
