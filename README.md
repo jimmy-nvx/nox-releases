@@ -7,6 +7,10 @@ say what you want, one agent builds, the other reviews, and you decide what to k
 - **Nox on your iPhone or iPad.** Privately see and control Nox over your own Tailscale network: answer requests, keep or discard work, chat, continue or stop tasks, stop all agents, and take a screenshot of the Mac. Pair once with a passkey; Face ID protects the risky actions. Nox uses tailnet-only `serve`, never Funnel or the public internet.
 - **Nox Notch.** A pill around the MacBook notch (top-centre pill on other Macs) shows what agents are doing in words: blue running, orange needs you, red failed. Hover for Allow, Deny, Always allow here and Stop; buttons wake up a moment after it opens so a stray click never approves.
 - **Your Mac, live on your phone.** Watch the Mac's screen through macOS Screen Sharing over your tailnet; **Take control** needs Face ID, sessions end after 60 minutes, and Nox never stores your Mac password. Off by default.
+- **Notifications on your phone.** Add Nox to your Home Screen and turn on notifications: "shop needs you", "review ready", "done" or "failed" arrive on your lock screen; tap one to open it. Nothing is sent while you're actually at your Mac.
+- **A task board.** Needs you · Running · Done, with an unseen-activity dot. Type the next instruction while an agent works and it's sent when the run ends; **Run again** repeats a finished task.
+- **English or Chinese.** Write to Nox in English or Mandarin (mixed is fine) and it answers in the same language. Speaking Chinese to Nox comes in the next update.
+- **A slim Notch.** Nox lives in your MacBook's notch: pure black, a tiny dot and a number, folding away when nothing is happening; hover for Allow / Deny / Stop.
 - **Tour, What's new and Help.** A seven-step tour on first run, a what's-new card after each update, and the full guide inside Nox (the **?** button), offline.
 - **Hardened runtime.** Nox is signed with macOS's hardened runtime and asks only for the microphone.
 - **Chat history.** Nox keeps your conversations with it on your Mac. **History** lists them with a search; open one to carry on, rename it, or delete one or all.
@@ -90,15 +94,15 @@ On first launch Nox starts its background service, adds two items to your login 
 
 Every number below comes from a recorded run, with its date. Nothing is estimated unless it says so.
 
-### Tests — 2026-10-17, v0.5.0 (latest recorded run)
+### Tests — 2026-10-17, v0.5.1 (latest recorded run)
 
 | Suite | Result |
 |---|---|
-| Service, scripts and voice-helper tests (bun) | 1,614 pass |
-| UI unit and component tests (desktop vitest) | 1,395 pass |
-| Phone app tests | 117 pass |
-| Rust shell tests (cargo) | 114 pass |
-| End-to-end (Playwright on WebKit, against a real Nox service per test) | 67 passed (plus the opt-in screenshot tests, skipped) |
+| Service, scripts and voice-helper tests (bun) | 1,653 pass |
+| UI unit and component tests (desktop vitest) | 1,431 pass |
+| Phone app tests | 145 pass |
+| Rust shell tests (cargo) | 116 pass |
+| End-to-end (Playwright on WebKit, against a real Nox service per test) | 68 passed (plus the opt-in screenshot tests, skipped) |
 
 This is the full gate run on 2026-10-17. The performance, soak and real-agent numbers below were not re-measured for
 0.5.0 and are from the older dates shown with them.
