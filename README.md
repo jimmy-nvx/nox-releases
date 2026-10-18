@@ -4,33 +4,29 @@
 say what you want, one agent builds, the other reviews, and you decide what to keep.
 
 - **Talk, then confirm.** Type or say "in shop, fix the failing date test". Nox shows exactly what will run on a card; nothing starts until you press **Confirm**.
-- **Nox on your iPhone or iPad.** Privately see and control Nox over your own Tailscale network: answer requests, keep or discard work, chat, continue or stop tasks, stop all agents, and take a screenshot of the Mac. Pair once with a passkey; Face ID protects the risky actions. Nox uses tailnet-only `serve`, never Funnel or the public internet.
 - **Nox Notch.** A pill around the MacBook notch (top-centre pill on other Macs) shows what agents are doing in words: blue running, orange needs you, red failed. Hover for Allow, Deny, Always allow here and Stop; buttons wake up a moment after it opens so a stray click never approves.
-- **Your Mac, live on your phone.** Watch the Mac's screen through macOS Screen Sharing over your tailnet; **Take control** needs Face ID, sessions end after 60 minutes, and Nox never stores your Mac password. Off by default.
-- **Notifications on your phone.** Add Nox to your Home Screen and turn on notifications: "shop needs you", "review ready", "done" or "failed" arrive on your lock screen; tap one to open it. Nothing is sent while you're actually at your Mac.
 - **A task board.** Needs you · Running · Done, with an unseen-activity dot. Type the next instruction while an agent works and it's sent when the run ends; **Run again** repeats a finished task.
-- **English or Chinese.** Write to Nox in English or Mandarin (mixed is fine) and it answers in the same language. Speaking Chinese to Nox comes in the next update.
+- **English or Chinese.** Talk or write to Nox in English or Mandarin (mixed is fine, like "帮我 run 一下 test"); it understands both and answers in the same language.
+- **One natural voice, built in.** Nox speaks in one natural female voice, in English and in Chinese, made on your Mac. It downloads once by itself (about 0.7 GB) and then works offline; until it is ready Nox uses a Mac voice.
 - **A slim Notch.** Nox lives in your MacBook's notch: pure black, a tiny dot and a number, folding away when nothing is happening; hover for Allow / Deny / Stop.
-- **Tour, What's new and Help.** A seven-step tour on first run, a what's-new card after each update, and the full guide inside Nox (the **?** button), offline.
+- **Tour, What's new and Help.** A six-step tour on first run, a what's-new card after each update, and the full guide inside Nox (the **?** button), offline.
 - **Hardened runtime.** Nox is signed with macOS's hardened runtime and asks only for the microphone.
 - **Chat history.** Nox keeps your conversations with it on your Mac. **History** lists them with a search; open one to carry on, rename it, or delete one or all.
 - **Adding projects that feels natural.** **Choose folder…**, drag a folder from Finder, or type `~/code`. Nox looks as soon as a folder is added, lists projects by when they were last used, and lets you search, **Select active** and add in one go. **Remove from Nox** forgets a project without touching your folder.
 - **Tidy tasks, one Stop.** A Tasks filter (All, Running, Needs you, Finished), **Delete** and **Clear finished…** for old tasks (your branches and repos are never touched), and one **Stop all** that says **All agents stopped** until you resume.
+- **Storage you control.** **Settings → Storage** says what Nox keeps on your Mac and frees space safely: **Clear cache**, **Free task copies** (also automatic, 7 days after a task finishes by default), **Reset voice** and **Remove voice models**. Your projects, branches, chat history and audit log are never touched.
 - **Honest updates.** The update pill shows megabytes, speed and time left, and says **Waiting for the network…** when nothing arrives.
 - **Two agents, one team.** One builds, the other reviews, each task in its own copy of your repo. Nothing in your repo changes while they work.
 - **Your branch, your models.** A task starts from the branch you are on, or one you name ("on feature/login"). Claude tasks run Opus and Codex tasks the model your Codex config names, unless you pick others in Settings or for one task.
 - **A Review Desk.** The diff with every review finding pinned under its line: **Keep work → main** (onto the branch the task started from, when that is safe), **Send back** or **Discard**.
 - **Talk to the fleet.** "Approve the low-risk ones" puts several waiting low- or medium-risk agent requests on one card; high-risk requests are decided one at a time, and **Keep work** / **Discard** is always decided on its own card.
 - **Safe by default.** Agents are sandboxed, risky commands wait for **Allow**, `⌥⌘.` stops everything, and every task's tokens are counted against a budget.
+- **From your iPhone or iPad.** Reach the Mac itself with RustDesk over Tailscale and use the whole Nox window (Nox's own phone site was removed in 0.5.5).
 
 ![Nox at work: two agents running, a push waiting for approval, live events](screens/02-home-busy.png)
 
-<img src="screens/phone-home.png" alt="Nox on an iPhone: status, Needs you and running demo tasks" width="280">
-<img src="screens/phone-task-keep.png" alt="A finished task on the phone, waiting for Keep work or Discard" width="280">
-
-<sub>All screenshots are Nox's real Mac or phone interface, taken by an automated test with demo projects, simulated
-agents shown as Claude and Codex, a demo phone and tailnet, and a fixed clock. No real work, person, device or tailnet is
-shown.</sub>
+<sub>All screenshots are Nox's real Mac interface, taken by an automated test with demo projects, simulated agents shown
+as Claude and Codex, and a fixed clock. No real work or person is shown.</sub>
 
 ## Screenshots
 
@@ -44,16 +40,8 @@ shown.</sub>
 | **First run.** Your folders are searched as soon as they are added; pick your Git projects. | **Keep work.** The card says where the work goes: **Keep work → main**, the branch the task started from. |
 | ![Add projects: two folders, results by age, Select active](screens/16-add-projects.png) | ![Chat history: kept conversations, search, rename, delete](screens/17-chat-history.png) |
 | **Add projects.** Choose a folder or drop one from Finder; results by last use, marked **Added** when already in Nox. | **Chat history.** Your conversations stay on your Mac until you delete them. |
-| ![Tasks, Finished filter, with Delete](screens/18-tasks-finished.png) | ![Settings, Phone: private address and a pairing QR code](screens/settings-phone.png) |
-| **Tasks filter.** Show only what is finished, then **Delete** one or **Clear finished…**. | **Settings → Phone.** One-time pairing with a QR code; Face ID guards the risky actions. |
-
-### On your phone
-
-Pair once in **Settings → Phone** (a QR code), then use Nox from Safari. Face ID is asked only for pairing, **Keep work**, **Discard**, allowing a high-risk request and **Stop all**.
-
-<img src="screens/phone-pair.png" alt="Pair Nox: name this device, then pair with Face ID" width="220">
-<img src="screens/phone-chat.png" alt="Chat with Nox from the phone, with a proposal card" width="220">
-<img src="screens/phone-stop-all.png" alt="Stop all on the phone, ready to confirm with Face ID" width="220">
+| ![Tasks, Finished filter, with Delete](screens/18-tasks-finished.png) | ![A confirmed task running, with live events and tokens today](screens/21-demo-running.png) |
+| **Tasks filter.** Show only what is finished, then **Delete** one or **Clear finished…**. | **At work.** The task you confirmed runs; live events, tokens today and what needs you stay in view. |
 
 ## Install
 
@@ -94,7 +82,19 @@ On first launch Nox starts its background service, adds two items to your login 
 
 Every number below comes from a recorded run, with its date. Nothing is estimated unless it says so.
 
-### Tests — 2026-10-17, v0.5.1 (latest recorded run)
+### Tests — 2026-10-18, v0.5.6 (latest recorded run)
+
+| Suite | Result |
+|---|---|
+| Service, scripts and voice-helper tests (bun) | 1,516 pass, 0 fail |
+| UI unit and component tests (desktop vitest) | 1,415 pass (1 skipped) |
+| Rust shell tests (cargo) | 117 pass |
+| End-to-end (Playwright on WebKit, against a real Nox service per test) | 55 passed, 3 failed, 9 skipped in the full run. The 3 were tests still expecting the old Settings defaults; fixed and re-run: 3 of 3 pass |
+| The built, signed app (hardened-runtime smoke test) | pass |
+
+Fewer tests than 0.5.1 because the phone site and its tests were removed in 0.5.5.
+
+### Tests — 2026-10-17, v0.5.1 (older)
 
 | Suite | Result |
 |---|---|
@@ -185,9 +185,7 @@ automated suite.
   version, and a failed update leaves Nox unchanged.
 - **No personal data in builds.** The app is built so it contains no file paths from the builder's Mac, and the build
   stops if one slips in.
-- **Local core; private phone access.** The main service and separate phone gateway listen on 127.0.0.1. A paired phone
-  reaches its gateway through tailnet-only Tailscale `serve`, never Funnel or the public internet; the Mac API key never
-  leaves the Mac. Voice is recognised on the Mac. Model traffic is limited to the agents' own calls and the assistant's
+- **Local core.** The service listens on 127.0.0.1 and its API key never leaves the Mac. Voice is recognised on the Mac. Model traffic is limited to the agents' own calls and the assistant's
   calls to Claude through your own login.
 - **A kill switch and a sealed audit log.** `⌥⌘.` stops every agent; the audit log shows if anyone changed it.
 
