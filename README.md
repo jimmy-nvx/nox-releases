@@ -3,6 +3,10 @@
 **A command centre for your AI coding agents, on your Mac.** Nox runs Claude Code and Codex on your git projects: you
 say what you want, one agent builds, the other reviews, and you decide what to keep.
 
+- **Sessions, like Terminal (new in 0.6.0).** Chat with Claude Code or Codex straight in any project's real folder, with your own plugins, MCP servers and `CLAUDE.md`. Pick the model and the access: ask first, auto-edit, or **Full access** (nothing asks; Nox confirms it with you once, and `⌥⌘.` still stops everything).
+- **Tools in one place (new in 0.6.0).** See and update Node, Claude Code and Codex with one click (Nox uses the installer that put each there), manage Claude and Codex plugins, marketplaces and MCP servers (secrets are never shown), and set default models, Fable included.
+- **All your projects at once (new in 0.6.0).** **Add all found** adds every repo in your code folders in one go, and watched folders can add new repos by themselves (one you removed never comes back).
+- **Live alerts with sound, and a System theme (new in 0.6.0).** Everything that needs you appears at once with a soft cue. Switch to the **System** look for holographic alert windows, levels, ranks and three daily quests earned from real work.
 - **Talk, then confirm.** Type or say "in shop, fix the failing date test". Nox shows exactly what will run on a card; nothing starts until you press **Confirm**.
 - **Nox Notch.** A pill around the MacBook notch (top-centre pill on other Macs) shows what agents are doing in words: blue running, orange needs you, red failed. Hover for Allow, Deny, Always allow here and Stop; buttons wake up a moment after it opens so a stray click never approves.
 - **A task board.** Needs you · Running · Done, with an unseen-activity dot. Type the next instruction while an agent works and it's sent when the run ends; **Run again** repeats a finished task.
@@ -82,7 +86,18 @@ On first launch Nox starts its background service, adds two items to your login 
 
 Every number below comes from a recorded run, with its date. Nothing is estimated unless it says so.
 
-### Tests — 2026-10-18, v0.5.6 (latest recorded run)
+### Tests — 2026-10-24, v0.6.0 (latest recorded run)
+
+| Suite | Result |
+|---|---|
+| Service, scripts and voice-helper tests (bun) | 1,673 pass, 0 fail |
+| UI unit and component tests (desktop vitest) | 1,842 pass (1 skipped) |
+| Rust shell tests (cargo) | 119 pass |
+| End-to-end (Playwright on WebKit, against a real Nox service per test) | 64 passed, 0 failed, 9 skipped. The run before failed 3: two because the new alerts covered buttons (alerts now sit bottom-right and never show for what is already on screen) and one expecting the old model list |
+| The built, signed app (hardened-runtime smoke test) | pass |
+| The built app on this Mac (smoke-app) | idle, window visible: 3.68 % CPU (budget 3 %; 0.5.6 measured 3.79 % the same day, so not new in 0.6.0) · hidden: 0.26 % · memory: 219 MB · cold start: 305 ms · recovers from a killed service in 1.1 s |
+
+### Tests — 2026-10-18, v0.5.6 (older)
 
 | Suite | Result |
 |---|---|
