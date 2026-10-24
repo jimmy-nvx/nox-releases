@@ -3,6 +3,7 @@
 **A command centre for your AI coding agents, on your Mac.** Nox runs Claude Code and Codex on your git projects: you
 say what you want, one agent builds, the other reviews, and you decide what to keep.
 
+- **Automations (new in 0.7.0).** A new page (`⌘5`): after a session changes your code, the other agent reviews it read-only and the findings come back in the chat with **Fix these**; plus scheduled **Update all** and **Morning review**, with reports and alerts. Sounds are now quiet by default, and typing Chinese or Japanese no longer sends on Enter.
 - **Update all, and talk to your sessions (new in 0.6.1).** One **Update all** in Tools updates every tool, Claude plugin and Codex marketplace, one step at a time, with live progress and **Cancel the rest**. In Sessions, tap the mic to speak a message and hear the reply read aloud (never code, paths or keys).
 - **Sessions, like Terminal (new in 0.6.0).** Chat with Claude Code or Codex straight in any project's real folder, with your own plugins, MCP servers and `CLAUDE.md`. Pick the model and the access: ask first, auto-edit, or **Full access** (nothing asks; Nox confirms it with you once, and `⌥⌘.` still stops everything).
 - **Tools in one place (new in 0.6.0).** See and update Node, Claude Code and Codex with one click (Nox uses the installer that put each there), manage Claude and Codex plugins, marketplaces and MCP servers (secrets are never shown), and set default models, Fable included.
