@@ -3,6 +3,7 @@
 **A command centre for your AI coding agents, on your Mac.** Nox runs Claude Code and Codex on your git projects: you
 say what you want, one agent builds, the other reviews, and you decide what to keep.
 
+- **Update all, and talk to your sessions (new in 0.6.1).** One **Update all** in Tools updates every tool, Claude plugin and Codex marketplace, one step at a time, with live progress and **Cancel the rest**. In Sessions, tap the mic to speak a message and hear the reply read aloud (never code, paths or keys).
 - **Sessions, like Terminal (new in 0.6.0).** Chat with Claude Code or Codex straight in any project's real folder, with your own plugins, MCP servers and `CLAUDE.md`. Pick the model and the access: ask first, auto-edit, or **Full access** (nothing asks; Nox confirms it with you once, and `⌥⌘.` still stops everything).
 - **Tools in one place (new in 0.6.0).** See and update Node, Claude Code and Codex with one click (Nox uses the installer that put each there), manage Claude and Codex plugins, marketplaces and MCP servers (secrets are never shown), and set default models, Fable included.
 - **All your projects at once (new in 0.6.0).** **Add all found** adds every repo in your code folders in one go, and watched folders can add new repos by themselves (one you removed never comes back).
@@ -79,14 +80,25 @@ On first launch Nox starts its background service, adds two items to your login 
    has no uncommitted changes. Otherwise the card says why before you decide, and the work is saved on a `nox/…` branch
    for you to merge when you want. Nox never makes a merge commit, never force-moves a branch and never pushes.
 
-`⌥⌘.` stops every agent at once. `⌘1` Home · `⌘2` Tasks · `⌘,` Settings. The full illustrated guide is
+`⌥⌘.` stops every agent at once. `⌘1` Home · `⌘2` Tasks · `⌘3` Sessions · `⌘4` Tools · `⌘,` Settings · `⌘K` everything else. The full illustrated guide is
 [Nox User Guide (PDF)](Nox-User-Guide.pdf).
 
 ## Evidence
 
 Every number below comes from a recorded run, with its date. Nothing is estimated unless it says so.
 
-### Tests — 2026-10-24, v0.6.0 (latest recorded run)
+### Tests — 2026-10-24, v0.6.1 (latest recorded run)
+
+| Suite | Result |
+|---|---|
+| Service, scripts and voice-helper tests (bun) | 1,705 pass, 0 fail |
+| UI unit and component tests (desktop vitest) | 1,930 pass (1 skipped) |
+| Rust shell tests (cargo) | 119 pass |
+| End-to-end (Playwright on WebKit, against a real Nox service per test) | 67 passed, 0 failed, 9 skipped |
+| The built, signed app (hardened-runtime smoke test) | pass |
+| The built app on this Mac (smoke-app) | memory: 217 MB · Nox service: 60 MB, 0.34 % CPU idle · hidden: 0.23 % CPU · cold start: 309 ms · recovers from a killed service in 1.0 s. Idle CPU with the window in front stays over its 3 % budget on this Mac, as 0.5.6 and 0.6.0 do |
+
+### Tests — 2026-10-24, v0.6.0 (older)
 
 | Suite | Result |
 |---|---|
